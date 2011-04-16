@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.jhorstmann</groupId>
+    <artifactId>array-utils</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>ArrayUtils</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <array.templatePath>${basedir}/src/main/tpl/Array.tpl</array.templatePath>
+        <array.package>net.jhorstmann.util.arrays</array.package>
+        <array.outputPath>${project.build.directory}/java/net/jhorstmann/util/arrays</array.outputPath>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-array-classes</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/FloatArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="FloatArray"/>
+                                        <filter token="primitiveType" value="float"/>
+                                        <filter token="wrapperType" value="Float"/>
+                                        <filter token="bufferType" value="FloatBuffer"/>
+                                        <filter token="asBuffer" value=".asFloatBuffer()"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/DoubleArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="DoubleArray"/>
+                                        <filter token="primitiveType" value="double"/>
+                                        <filter token="wrapperType" value="Double"/>
+                                        <filter token="bufferType" value="DoubleBuffer"/>
+                                        <filter token="asBuffer" value=".asDoubleBuffer()"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/CharArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="CharArray"/>
+                                        <filter token="primitiveType" value="char"/>
+                                        <filter token="wrapperType" value="Character"/>
+                                        <filter token="bufferType" value="CharBuffer"/>
+                                        <filter token="asBuffer" value=".asCharBuffer()"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/ByteArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="ByteArray"/>
+                                        <filter token="primitiveType" value="byte"/>
+                                        <filter token="wrapperType" value="Byte"/>
+                                        <filter token="bufferType" value="ByteBuffer"/>
+                                        <filter token="asBuffer" value=""/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/ShortArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="ShortArray"/>
+                                        <filter token="primitiveType" value="short"/>
+                                        <filter token="wrapperType" value="Short"/>
+                                        <filter token="bufferType" value="ShortBuffer"/>
+                                        <filter token="asBuffer" value=".asShortBuffer()"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/IntArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="IntArray"/>
+                                        <filter token="primitiveType" value="int"/>
+                                        <filter token="wrapperType" value="Integer"/>
+                                        <filter token="bufferType" value="IntBuffer"/>
+                                        <filter token="asBuffer" value=".asIntBuffer()"/>
+                                    </filterset>
+                                </copy>
+                                <copy file="${array.templatePath}" tofile="${array.outputPath}/LongArray.java" overwrite="true">
+                                    <filterset>
+                                        <filter token="package" value="${array.package}"/>
+                                        <filter token="className" value="LongArray"/>
+                                        <filter token="primitiveType" value="long"/>
+                                        <filter token="wrapperType" value="Long"/>
+                                        <filter token="bufferType" value="LongBuffer"/>
+                                        <filter token="asBuffer" value=".asLongBuffer()"/>
+                                    </filterset>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/java/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
