@@ -235,12 +235,14 @@ public final class @className@ {
     }
 
     public void reverse() {
-        @primitiveType@[] d = this.data;
-        int s = size;
-        for (int i=0, m=s/2; i<m; i++) {
-            @primitiveType@ tmp = d[i];
-            d[i] = d[s-i-1];
-            d[s-i-1] = tmp;
+        int len = size;
+        if (len > 1) {
+            @primitiveType@[] data = this.data;
+            for (int i=0, m=len/2; i<m; i++) {
+                @primitiveType@ tmp = data[i];
+                data[i] = data[len-i-1];
+                data[len-i-1] = tmp;
+            }
         }
     }
 
