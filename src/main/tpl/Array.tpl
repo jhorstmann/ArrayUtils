@@ -210,6 +210,14 @@ public final class @className@ {
         size = 0;
     }
 
+    public void trimToSize() {
+        if (size < data.length) {
+            @primitiveType@[] tmp = new @primitiveType@[size];
+            System.arraycopy(data, 0, tmp, 0, size);
+            data = tmp;
+        }
+    }
+
     public int size() {
         return size;
     }
