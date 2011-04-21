@@ -77,17 +77,17 @@ public final class @className@ {
         System.arraycopy(data, idx, values, offset, length);
     }
 
-    public void get(int idx, java.nio.@bufferType@ b) {
-        get(idx, b, size-idx);
+    public void get(int idx, java.nio.@bufferType@ buffer) {
+        get(idx, buffer, size-idx);
     }
 
-    public void get(int idx, java.nio.@bufferType@ b, int length) {
+    public void get(int idx, java.nio.@bufferType@ buffer, int length) {
         checkIndex(idx, length);
-        b.put(data, idx, length);
+        buffer.put(data, idx, length);
     }
 
-    public void get(java.nio.@bufferType@ b) {
-        b.put(data, 0, size);
+    public void get(java.nio.@bufferType@ buffer) {
+        buffer.put(data, 0, size);
     }
 
     public void set(int idx, @primitiveType@ value) {
@@ -180,15 +180,15 @@ public final class @className@ {
     }
 
     public java.nio.@bufferType@ toDirectBuffer() {
-        java.nio.@bufferType@ b = java.nio.ByteBuffer.allocateDirect(@wrapperType@.SIZE/8*size).order(NATIVE_BYTE_ORDER)@asBuffer@;
-        b.put(data, 0, size).position(0);
-        return b;
+        java.nio.@bufferType@ buffer = java.nio.ByteBuffer.allocateDirect(@wrapperType@.SIZE/8*size).order(NATIVE_BYTE_ORDER)@asBuffer@;
+        buffer.put(data, 0, size).position(0);
+        return buffer;
     }
 
     public java.nio.@bufferType@ toBuffer() {
-        java.nio.@bufferType@ b = java.nio.@bufferType@.allocate(size);
-        b.put(data, 0, size).position(0);
-        return b;
+        java.nio.@bufferType@ buffer = java.nio.@bufferType@.allocate(size);
+        buffer.put(data, 0, size).position(0);
+        return buffer;
     }
 
     public java.nio.@bufferType@ asBuffer() {
@@ -250,11 +250,11 @@ public final class @className@ {
         } else if (size != other.size) {
             return false;
         } else {
-            @primitiveType@[] d1 = data;
-            @primitiveType@[] d2 = other.data;
+            @primitiveType@[] data1 = data;
+            @primitiveType@[] data2 = other.data;
 
             for (int i=0, len=size; i<len; i++) {
-                if (d1[i] != d2[i]) {
+                if (data1[i] != data2[i]) {
                     return false;
                 }
             }
@@ -265,11 +265,11 @@ public final class @className@ {
     public void swap(int i1, int i2, int length) {
         checkIndex(i1, length);
         checkIndex(i2, length);
-        @primitiveType@[] d = this.data;
+        @primitiveType@[] data = this.data;
         for (int i=0; i<length; i++) {
-            @primitiveType@ tmp = d[i1+i];
-            d[i1+1] = d[i2+i];
-            d[i2+i] = tmp;
+            @primitiveType@ tmp = data[i1+i];
+            data[i1+1] = data[i2+i];
+            data[i2+i] = tmp;
         }
     }
 }
